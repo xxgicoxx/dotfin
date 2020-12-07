@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'palavras.historico' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="service.dismiss()"><ion-icon name="close-outline"></ion-icon> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding [fullscreen]="true">
+  <div id="container" *ngIf="service.contas != null && service.contas.length <= 0">
+    <ion-icon size="large" name="folder-open-outline"></ion-icon>
+    <p>{{ 'mensagens.vazio' | translate }}</p>
+  </div>
+
+  <div *ngIf="service.contas != null && service.contas.length > 0">
+    <ion-list padding *ngFor="let conta of service.contas">
+      <ion-item>
+        <ion-label>
+          <p>Descrição: {{ conta.descricao }}</p>
+          <p>Total: {{ conta.totalFormatado }}</p>
+          <br/>
+          <p><i>{{ conta.dataFormatada }}</i></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

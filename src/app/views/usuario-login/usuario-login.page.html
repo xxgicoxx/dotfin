@@ -1,0 +1,49 @@
+<ion-content>
+  <ion-slide>
+    <div class="contaier-login ion-text-center">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h1><b>DotFin</b></h1>
+          </ion-col>
+        </ion-row>
+        <form [formGroup]="service.formGroup" (ngSubmit)="service.login()">
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-icon name="mail-outline" class="ion-padding-end"></ion-icon>
+                <ion-input formControlName="email" [formControl]="service.formGroup.controls['email']" name="user" type="email" required placeholder="{{ 'palavras.email' | translate }}"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-item>
+                <ion-icon name="lock-closed-outline" class="ion-padding-end"></ion-icon>
+                <ion-input formControlName="senha" [formControl]="service.formGroup.controls['senha']" name="password" type="password" required placeholder="{{ 'palavras.senha' | translate }}"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button [disabled]="!service.formGroup.valid" type="submit" color="primary" shape="round" fill="solid" expand="full">
+                <ion-icon slot="start" name="enter-outline"></ion-icon>
+                {{ 'palavras.entrar' | translate }}
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-button (click)="service.navegaUsuarioRecuperacao()" type="button" color="primary" shape="round" fill="solid" expand="full">
+                <ion-icon slot="start" name="reload-outline"></ion-icon>
+                {{ 'palavras.recuperar' | translate }}
+              </ion-button>
+            </ion-col>
+              
+            <ion-col size="12">
+              <a (click)="service.navegaUsuarioRegistro()"><u>{{ 'palavras.registrar' | translate }}</u></a>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-slide>
+</ion-content>

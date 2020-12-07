@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'sentencas.novoMembro' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="service.dismiss(false)"><ion-icon name="close-outline"></ion-icon> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="service.formGroup" (ngSubmit)="service.dismiss(true)">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">{{ 'palavras.email' | translate }}</ion-label>
+          <ion-input type="email" formControlName="email" [formControl]="service.formGroup.controls['email']" placeholder="{{ 'palavras.email' | translate }}" required></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12"> 
+        <ion-button [disabled]="!service.formGroup.valid" type="submit" shape="round" expand="block">
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          {{ 'palavras.adicionar' | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

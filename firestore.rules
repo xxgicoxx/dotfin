@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+    match /databases/{database}/documents {
+        function verificado() {
+            return request.auth.uid != null && request.auth.token.email_verified;
+        }
+        
+        match /usuarios/{userId} {
+            allow read: if verificado() && request.auth.uid == userId;
+            allow create, update, delete: if false
+            
+            match /grupos/{grupoId}/{document=**} {
+                allow read, delete: if verificado() && request.auth.uid == userId;
+                allow create: if verificado() && request.resource.data.keys().hasAll(['nome', 'referencia']) && request.auth.uid == userId;
+                allow update: if false;
+            }
+            
+            match /mensagens/{mensagemId}/{document=**} {
+             	allow read, delete: if verificado() && request.auth.uid == userId;
+            	allow create, update: if false;
+            }
+        }
+
+        match /grupos/{grupoId} {
+            function existsGrupo() {
+                return exists(/databases/$(database)/documents/grupos/$(grupoId));
+            }
+
+            function existsMembro(email) {
+                return exists(/databases/$(database)/documents/grupos/$(grupoId)/membros/$(email == null ? request.auth.token.email : email));
+            }
+
+            function getMembro() {
+                return get(/databases/$(database)/documents/grupos/$(grupoId)/membros/$(request.auth.token.email));
+            }
+
+            allow read, update, delete: if verificado();
+            allow create: if verificado() && request.resource.data.keys().hasAll(['nome']);
+            
+            match /contas/{contaId}/{document=**} {
+                function getConta() {
+                    return get(/databases/$(database)/documents/grupos/$(grupoId)/contas/$(contaId));
+                }
+                
+                allow read: if existsMembro(null) && verificado();
+                allow create: if existsMembro(null) && verificado() && request.resource.data.keys().hasAll(['data', 'descricao', 'divisao', 'tipo', 'usuario', 'valor', 'quantidade']);
+                allow update: if false; 
+                allow delete: if (getMembro().data.criador == true || getConta().data.usuario == request.auth.token.email) && verificado(); 
+            }
+
+            match /fechadas/{fechadaId} {
+                allow read: if existsMembro(null) && verificado();
+                allow create: if getMembro().data.criador == true && verificado() && request.resource.data.keys().hasAll(['data', 'descricao', 'total']); 
+                allow update: if false;
+                allow delete: if getMembro().data.criador == true && verificado();
+                
+                match /lancamentos/{lancamentoId}/{document=**} {
+                    allow read: if existsMembro(null) && verificado();
+                    allow create: if getMembro().data.criador == true && verificado() && request.resource.data.keys().hasAll(['data', 'descricao', 'divisao', 'tipo', 'usuario', 'valor', 'quantidade', 'referencia']);
+                    allow update: if false;
+                    allow delete: if getMembro().data.criador == true && verificado();
+                }
+            }
+
+            match /membros/{membroId}/{document=**} {
+                allow read: if existsMembro(null) && verificado();
+                allow create: if (!existsGrupo() && verificado()) || (getMembro().data.criador == true && !existsMembro(membroId) && verificado()); 
+                allow update: if false;
+                allow delete: if getMembro().data.criador == true && request.auth.token.email != membroId && verificado();
+            }
+        }
+    }  
+}

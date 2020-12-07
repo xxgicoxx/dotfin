@@ -1,0 +1,66 @@
+{
+	"auth/argument-error": "Erro ao realizar login",
+	"auth/email-already-in-use": "O email já está em uso",
+	"auth/invalid-email": "Email inválido",
+	"auth/too-many-requests": "Muitas tentativas de acesso, a conta foi temporariamente bloqueada",
+	"auth/user-not-found": "Usuário não encontrado",
+	"auth/wrong-password": "Senha incorreta",
+	
+	"mensagens": {
+		"erro": "Erro ao processar solicitação, tente novamente ou verifique sua conexão com a internet",
+		"vazio": "Não há nada para exibir.",
+
+		"grupo": {
+			"copiado": "Código do grupo copiado"
+		},
+		"usuario": {
+			"atualizado": "Informações atualizadas"
+		}
+	},
+
+	"palavras": {
+		"adicionar": "Adicionar",
+		"cancelar": "Cancelar",
+		"cobranca": "Cobrança",
+		"codigo": "Código",
+		"concluir": "Concluir",
+		"configuracoes": "Configurações",
+		"confirmar": "Confirmar",
+		"conta": "Conta",
+		"criar": "Criar",
+		"data": "Data",
+		"desconto": "Desconto",
+		"descricao": "Descrição",
+		"divisao": "Divisão",
+		"email": "Email",
+		"entrar": "Entrar",
+		"familia": "Família",
+		"fechamento": "Fechamento",
+		"historico": "Histórico",
+		"informacoes": "Informações",
+		"inicio": "Início",
+		"itens": "Itens",
+		"membros": "Membros",
+		"nome": "Nome",
+		"notificacoes": "Notificações",
+		"quantidade": "Quantidade",
+		"recuperar": "Recuperar",
+		"registrar": "Registrar",
+		"sair": "Sair",
+		"salvar": "Salvar",
+		"senha": "Senha",
+		"tipo": "Tipo",
+		"total": "Total",
+		"usuario": "Usuário",
+		"valor": "Valor"
+	},
+
+	"sentencas": {
+		"adicionaGrupo": "Adiciona Grupo",
+		"novaConta": "Nova Conta",
+		"novaSenha": "Nova Senha",
+		"novoGrupo": "Novo Grupo",
+		"novoMembro": "Novo Membro",
+		"valorDividido": "Valor Dividido"
+	}
+}

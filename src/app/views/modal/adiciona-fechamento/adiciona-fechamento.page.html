@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'palavras.fechamento' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="service.dismiss(false)"><ion-icon name="close-outline"></ion-icon> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="service.formGroup" (ngSubmit)="service.dismiss(true)">
+    <ion-row padding>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">{{ 'palavras.descricao' | translate }}</ion-label>
+          <ion-input type="text" formControlName="descricao" [formControl]="service.formGroup.controls['descricao']" placeholder="{{ 'palavras.descricao' | translate }}" required></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12"> 
+        <ion-button [disabled]="!service.formGroup.valid" type="submit" shape="round" expand="block">
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          {{ 'palavras.concluir' | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

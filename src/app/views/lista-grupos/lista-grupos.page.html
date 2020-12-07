@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    
+    <ion-title>{{ 'palavras.inicio' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button id="criaGrupo" (click)="service.criaGrupo()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content padding [fullscreen]="true">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="service.adicionaGrupo()">
+      <ion-icon name="heart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div id="container" *ngIf="service.grupos != null && service.grupos.length <= 0">
+    <ion-icon size="large" name="folder-open-outline"></ion-icon>
+    <p>{{ 'mensagens.vazio' | translate }}</p>
+  </div>
+
+  <div *ngIf="service.grupos != null && service.grupos.length > 0">
+    <ion-list padding *ngFor="let grupo of service.grupos">
+      <ion-item-sliding>
+        <ion-item button (click)="service.navegaListaContas(grupo.referencia, grupo.nome)" detail>
+          <ion-label>
+            <p>{{ grupo.nome }}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="service.deletaGrupo(grupo.id)"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

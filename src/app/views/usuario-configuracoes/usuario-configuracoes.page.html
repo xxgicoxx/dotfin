@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'palavras.configuracoes' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <form [formGroup]="service.formGroup" (ngSubmit)="service.salvar()">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="person-outline" class="ion-padding-end"></ion-icon>
+            <ion-input disabled>{{ service.usuario.nome }}</ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="mail-outline" class="ion-padding-end"></ion-icon>
+            <ion-input disabled>{{ service.usuario.email }}</ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="lock-closed-outline" class="ion-padding-end"></ion-icon>
+            <ion-input formControlName="senha" [formControl]="service.formGroup.controls['senha']" name="senha" type="password" required placeholder="{{ 'palavras.senha' | translate }}"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="lock-closed-outline" class="ion-padding-end"></ion-icon>
+            <ion-input formControlName="novaSenha" [formControl]="service.formGroup.controls['novaSenha']" name="novaSenha" type="password" placeholder="{{ 'sentencas.novaSenha' | translate }}"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-button [disabled]="!service.formGroup.valid" type="submit" color="primary" shape="round" fill="solid" expand="full">
+            <ion-icon slot="start" name="save-outline"></ion-icon>
+            {{ 'palavras.salvar' | translate }}
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-button color="danger" shape="round" (click)="service.sair()" fill="solid" expand="full">
+            <ion-icon slot="start" name="exit-outline"></ion-icon>
+            {{ 'palavras.sair' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'palavras.informacoes' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="service.dismiss()"><ion-icon name="close-outline"></ion-icon> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col size="12"> 
+      <ion-item>
+        <ion-label>{{ 'palavras.familia' | translate }}</ion-label>
+        <ion-note slot="end" color="primary">{{ nome }}</ion-note>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12"> 
+      <ion-item>
+        <ion-label>{{ 'palavras.valor' | translate }}</ion-label>
+        <ion-note slot="end" color="primary">{{ total }}</ion-note>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12"> 
+      <ion-item>
+        <ion-label>{{ 'palavras.itens' | translate }}</ion-label>
+        <ion-note slot="end" color="primary">{{ itens }}</ion-note>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-content>

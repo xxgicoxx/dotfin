@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button id="listaInformacoes" (click)="service.listaInformacoes()">
+        <ion-icon name="information-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button id="listaMembros" (click)="service.listaMembros()">
+        <ion-icon name="people-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button *ngIf="service.membro.criador" id="adicionaMembro" (click)="service.adicionaMembro()">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button *ngIf="service.membro.criador" id="fechar" (click)="service.adicionaFechamento()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button id="listaHistorico" (click)="service.listaContasFechadas()">
+        <ion-icon name="list-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button id="compartilhaGrupo" (click)="service.copiaCodigoGrupo()">
+        <ion-icon name="clipboard-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding [fullscreen]="true">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="service.criaConta()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div id="container" *ngIf="service.contas != null && service.contas.length <= 0">
+    <ion-icon size="large" name="folder-open-outline"></ion-icon>
+    <p>{{ 'mensagens.vazio' | translate }}</p>
+  </div>
+
+  <div *ngIf="service.contas != null && service.contas.length > 0">
+    <ion-list padding *ngFor="let conta of service.contas">
+      <ion-item-sliding>
+        <ion-item>
+          <ion-label>
+            <h2>x{{ conta.quantidade }} - {{ conta.descricao }}
+              <ion-chip *ngIf="conta.tipo == 'conta'" color="danger" outline>
+                <ion-label>{{ 'palavras.conta' | translate }}</ion-label>
+              </ion-chip>
+
+              <ion-chip *ngIf="conta.tipo == 'cobranca'" color="warning" outline>
+                <ion-label>{{ 'palavras.cobranca' | translate }}</ion-label>
+              </ion-chip>
+
+              <ion-chip *ngIf="conta.tipo == 'desconto'" color="{{ conta.usuario == service.usuario.email ? 'success' : 'danger' }}" outline>
+                <ion-label>{{ 'palavras.desconto' | translate }}</ion-label>
+              </ion-chip>
+            </h2>
+            <p>{{ 'palavras.usuario' | translate }}: {{ conta.usuarioNome || conta.usuario }}</p>
+            <p>{{ 'palavras.valor' | translate }}: {{ conta.valorFormatado }}</p>
+            <p>{{ 'palavras.total' | translate }}: {{ conta.totalFormatado }}</p>
+            <p *ngIf="conta.divisao > 1">{{ 'sentencas.valorDividido' | translate }}: {{ conta.valorDivididoFormatado }}</p>
+            <p *ngIf="conta.divisao > 1">{{ 'palavras.divisao' | translate }}: {{ conta.divisao }}</p>
+            <br/>
+            <p><i>{{ conta.dataFormatada }}</i></p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options *ngIf="service.membro.criador || conta.usuario == service.usuario.email" side="end">
+          <ion-item-option color="danger" (click)="service.deletaConta(conta.id)"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

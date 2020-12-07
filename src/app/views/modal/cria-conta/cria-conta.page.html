@@ -1,0 +1,79 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{ 'sentencas.novaConta' | translate }}</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="service.dismiss(false)"><ion-icon name="close-outline"></ion-icon> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="service.formGroup" (ngSubmit)="service.dismiss(true)">
+    <ion-row>
+      <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">{{ 'palavras.descricao' | translate }}</ion-label>
+            <ion-input type="text" formControlName="descricao" [formControl]="service.formGroup.controls['descricao']" placeholder="{{ 'palavras.descricao' | translate }}" required></ion-input>
+          </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">{{ 'palavras.quantidade' | translate }}</ion-label>
+          <ion-input type="number" formControlName="quantidade" [formControl]="service.formGroup.controls['quantidade']" placeholder="{{ 'palavras.quantidade' | translate }}" required></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">{{ 'palavras.valor' | translate }}</ion-label>
+          <ion-input type="number" formControlName="valor" [formControl]="service.formGroup.controls['valor']" placeholder="{{ 'palavras.valor' | translate }}" required></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">{{ 'palavras.divisao' | translate }}</ion-label>
+          <ion-input type="number" formControlName="divisao" [formControl]="service.formGroup.controls['divisao']" placeholder="{{ 'palavras.divisao' | translate }}" required></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">{{ 'palavras.data' | translate }}</ion-label>
+          <ion-datetime formControlName="data" [formControl]="service.formGroup.controls['data']" displayFormat="DD/MM/YYYY" placeholder="{{ 'palavras.data' | translate }}" required></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>{{ 'palavras.tipo' | translate }}</ion-label>
+          <ion-select formControlName="tipo" [formControl]="service.formGroup.controls['tipo']" value="tipo">
+            <ion-select-option value="conta">{{ 'palavras.conta' | translate }}</ion-select-option>
+            <ion-select-option value="desconto">{{ 'palavras.desconto' | translate }}</ion-select-option>
+            <ion-select-option value="cobranca">{{ 'palavras.cobranca' | translate }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12" *ngIf="service.formGroup.value.tipo === 'cobranca'">
+        <ion-item>
+          <ion-label>{{ 'palavras.membros' | translate }}</ion-label>
+          <ion-select formControlName="membros" [formControl]="service.formGroup.controls['membros']" multiple="true">
+            <ion-select-option *ngFor="let membro of service.membros" multiple="true" value="{{ membro.id }}">{{ membro.nome }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12"> 
+        <ion-button [disabled]="!service.formGroup.valid" type="submit" shape="round" expand="block">
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          {{ 'palavras.adicionar' | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
