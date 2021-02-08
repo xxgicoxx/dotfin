@@ -14,6 +14,8 @@ import { GrupoModel } from '../models/grupo';
 @Injectable()
 export class ListaGruposService {
 
+  private gruposSnapshot: any;
+
   private grupos = new Array<GrupoModel>();
   private usuario = new UsuarioModel();
 
@@ -25,13 +27,17 @@ export class ListaGruposService {
     private router: Router
   ) { }
 
+  ngOnDestroy(): void {
+    this.gruposSnapshot();
+  }
+
   async buscaGrupos() {
     try {
       this.usuario = this.activatedRoute.snapshot.data.usuario;
 
       const gruposReferencia = await this.firebaseService.buscaGrupos(this.usuario.uid);
 
-      gruposReferencia.onSnapshot((grupos) => {
+      this.gruposSnapshot = gruposReferencia.onSnapshot((grupos) => {
         grupos.docChanges().forEach(async (change) => {
           if (change.type === 'added') {
             const grupoModel = plainToClass(GrupoModel, { ...change.doc.data(), ...{ id: change.doc.id } });

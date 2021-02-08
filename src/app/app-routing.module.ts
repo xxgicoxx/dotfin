@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'usuario-registro',
-    loadChildren: () => import('./views/usuario-registro/usuario-registro.module').then( m => m.UsuarioRegistroPageModule)
+    loadChildren: () => import('./views/usuario-registro/usuario-registro.module').then( m => m.UsuarioRegistroPageModule),
+    canActivate: [ LoginGuard ]
   },
   {
     path: 'usuario-login',

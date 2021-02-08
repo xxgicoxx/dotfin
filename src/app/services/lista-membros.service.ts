@@ -11,6 +11,8 @@ import { GrupoModel } from '../models/grupo';
 @Injectable()
 export class ListaMembrosService {
 
+  private membrosSnapshot: any;
+
   private membro = new MembroModel();
   private membros = new Array<MembroModel>();
   private grupo = new GrupoModel();
@@ -21,6 +23,10 @@ export class ListaMembrosService {
     private i18nService: I18nService
   ) { }
 
+  ngOnDestroy(): void {
+    this.membrosSnapshot();
+  }
+
   async buscaMembros(grupo: GrupoModel, membro: MembroModel) {
     try {
       this.membro = membro;
@@ -28,7 +34,7 @@ export class ListaMembrosService {
 
       const membrosReferencia = await this.firebaseService.buscaMembros(this.grupo.referencia);
 
-      membrosReferencia.onSnapshot((membros) => {
+      this.membrosSnapshot = membrosReferencia.onSnapshot((membros) => {
         membros.docChanges().forEach(async (change) => {
           if (change.type === 'added') {
             const membroModel = plainToClass(MembroModel, { ...change.doc.data(), ...{ email: change.doc.id } });

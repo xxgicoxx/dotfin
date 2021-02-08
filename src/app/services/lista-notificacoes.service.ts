@@ -13,6 +13,8 @@ import { GrupoModel } from '../models/grupo';
 @Injectable()
 export class ListaNotificacoesService {
 
+  private notificacoesSnapshot: any;
+
   private notificacoes = new Array<NotificacaoModel>();
   private usuario = new UsuarioModel();
 
@@ -23,13 +25,17 @@ export class ListaNotificacoesService {
     private i18nService: I18nService
   ) { }
 
+  ngOnDestroy(): void {
+    this.notificacoesSnapshot();
+  }
+
   async buscaNotificacoes() {
     try {
       this.usuario = this.activatedRoute.snapshot.data.usuario;
 
       const notificacoesReferencia = await this.firebaseService.buscaNotificacoes(this.usuario.uid);
 
-      notificacoesReferencia.onSnapshot((notificacoes) => {
+      this.notificacoesSnapshot = notificacoesReferencia.onSnapshot((notificacoes) => {
         notificacoes.docChanges().forEach(async (change) => {
           if (change.type === 'added') {
             const notificacaoModel = plainToClass(NotificacaoModel, { ...change.doc.data(), ...{ id: change.doc.id } });

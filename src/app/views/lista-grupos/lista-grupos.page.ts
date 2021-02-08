@@ -1,6 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
 
 import { ListaGruposService } from '../../services/lista-grupos.service';
 
@@ -14,13 +13,10 @@ export class ListaGruposPage implements OnInit {
 
   constructor(
     private translateService: TranslateService,
-    private menuController: MenuController,
     private service: ListaGruposService
   ) {
     this.translateService.setDefaultLang('pt-br');
     this.translateService.use('pt-br');
-
-    this.menuController.enable(true);
   }
 
   ngOnInit() {

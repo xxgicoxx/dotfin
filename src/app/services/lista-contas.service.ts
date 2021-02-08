@@ -22,6 +22,8 @@ import { ContaModel } from '../models/conta';
 @Injectable()
 export class ListaContasService {
 
+  private contasSnapshot: any;
+
   private contas = new Array<ContaModel>();
   private usuario = new UsuarioModel();
   private grupo = new GrupoModel();
@@ -39,6 +41,10 @@ export class ListaContasService {
     private utils: UtilsService
   ) { }
 
+  ngOnDestroy(): void {
+    this.contasSnapshot();
+  }
+
   async buscaContas() {
     try {
       this.usuario = this.activatedRoute.snapshot.data.usuario;
@@ -47,7 +53,7 @@ export class ListaContasService {
 
       const contasReferencia = await this.firebaseService.buscaContas(this.grupo.referencia);
 
-      contasReferencia.onSnapshot(async (contas) => {
+      this.contasSnapshot = contasReferencia.onSnapshot(async (contas) => {
         contas.docChanges().forEach(async (change) => {
           if (change.type === 'added') {
             this.itens += 1;

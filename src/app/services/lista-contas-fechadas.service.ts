@@ -11,6 +11,8 @@ import { GrupoModel } from '../models/grupo';
 @Injectable()
 export class ListaContasFechadasService {
 
+  private constasFechadasSnapshot: any;
+
   private contas = new Array<ContaFechadaModel>();
 
   constructor(
@@ -19,11 +21,15 @@ export class ListaContasFechadasService {
     private i18nService: I18nService
   ) { }
 
+  ngOnDestroy(): void {
+    this.constasFechadasSnapshot();
+  }
+
   async buscaContasFechadas(grupo: GrupoModel) {
     try {
       const contasFechadasReferencia = await this.firebaseService.buscaContasFechadas(grupo.referencia);
 
-      contasFechadasReferencia.onSnapshot((contasFechadas) => {
+      this.constasFechadasSnapshot = contasFechadasReferencia.onSnapshot((contasFechadas) => {
         contasFechadas.docChanges().forEach(async (change) => {
           if (change.type === 'added') {
             const contaFechadaModel = plainToClass(ContaFechadaModel, change.doc.data());

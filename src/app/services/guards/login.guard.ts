@@ -15,15 +15,17 @@ export class LoginGuard implements CanActivate {
     private menuController: MenuController,
     private i18nService: I18nService,
     private router: Router
-  ) {
-    this.menuController.enable(false);
-  }
+  ) { }
 
   async canActivate(): Promise<boolean | UrlTree> {
     return new Promise((resolve, reject) => {
       this.angularFireAuth.onAuthStateChanged((usuario: firebase.User) => {
         if (usuario && usuario.emailVerified) {
           this.navegaListaGrupos();
+
+          this.menuController.enable(true);
+        } else {
+          this.menuController.enable(false);
         }
 
         resolve(true);

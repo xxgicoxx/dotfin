@@ -16,8 +16,8 @@ service cloud.firestore {
             }
             
             match /mensagens/{mensagemId}/{document=**} {
-             	allow read, delete: if verificado() && request.auth.uid == userId;
-            	allow create, update: if false;
+             	allow read, update, delete: if verificado() && request.auth.uid == userId;
+            	allow create: if false;
             }
         }
 
