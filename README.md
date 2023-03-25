@@ -1,15 +1,6 @@
 # DotFin
 DotFin é um aplicativo para controle financeiro desenvolvido em Ionic Framework que utiliza o Firebase como back-end e foi feito para atender algumas necessidades minhas. Espero que ele seja útil para você também.
 
-### Funcionalidades
-* Autenticação Firebase 🔥
-* Verificação de e-mail 📧
-* Recuperação de senha 🔑
-* Criação de grupos 👨‍👩‍👧‍👦
-* Lançamento de contas/despesas 💸
-* Lançamento de descontos 💲
-* Lançamento de cobranças para outros usuários do grupo 🤑
-
 <p float="left">
   <img src="https://i.imgur.com/3xeY42t.jpg" width="200" />
   <img src="https://i.imgur.com/hEVMROP.jpg" width="200" /> 
@@ -19,48 +10,63 @@ DotFin é um aplicativo para controle financeiro desenvolvido em Ionic Framework
   <img src="https://i.imgur.com/eV86eIn.jpg" width="200" />
 </p>
 
-#
+# Funcionalidades
+* Autenticação Firebase 🔥
+* Verificação de e-mail 📧
+* Recuperação de senha 🔑
+* Criação de grupos 👨‍👩‍👧‍👦
+* Lançamento de contas/despesas 💸
+* Lançamento de descontos 💲
+* Lançamento de cobranças para outros usuários do grupo 🤑
+* i18n 💬
 
-### Requisitos
+# Pré-requisitos
 * [Node.js](https://nodejs.org/en/)
 * [Ionic Framework](https://ionicframework.com/)
 * [Firebase CLI](https://firebase.google.com/docs/functions/get-started)
 * [Android Studio](https://developer.android.com/studio)
 
-### Firebase Authentication
-* Crie um novo projeto no [Firebase](https://console.firebase.google.com/)
-* Acesse o projeto criado
-* No menu, acesse 'Authentication > Sign-in method'
-* Ative o método 'E-mail/senha'
+# Executando
+### 1. Firebase Authentication
+````
+# Novo projeto
+Crie um novo projeto no Firebase através do link https://console.firebase.google.com/.
 
-### Cloud Firestore
-* No menu, acesse 'Cloud Firestore'
-* Clique em 'Criar banco de dados'
-* Marque a opção 'Iniciar no modo de produção'
-* Acesse a aba 'Regras'
-* Acesse o diretório raiz do projeto, abra o arquivo [firestore.rules](firestore.rules) e copie todo seu conteúdo
-* Substitua todo o conteúdo da aba 'Regras' pelo conteúdo copiado
-* Clique em 'Publicar'
+# Acesse
+Acesse o projeto criado.
 
-### Cloud Functions
-* Instale o [Firebase CLI](https://firebase.google.com/docs/functions/get-started)
-* Acesse o diretório 'functions/dotfin'
-* Execute `firebase use --add`
-* Selecione o projeto criado no primeiro passo
-* Execute `firebase deploy`
+# Defina o método de acesso
+No menu, acesse 'Authentication > Sign-in method' e ative o método 'E-mail/senha'.
+````
 
-### Aplicativo
-* Acesse 'Configurações do projeto'
-* Vá até 'Seus aplicativos'
-* Selecione a opção 'Web'
-* Siga os passos solicitados
-* No final, copie o conteúdo do 'firebaseConfig' gerado pelo Firebase 
-* Acesse a pasta raiz do projeto e execute `npm install`
-* Acesse o diretório 'src/environments' e abra o arquivo [environment.ts](src/environments/environment.ts)
-* Substitua o 'firebaseConfig' pelo 'firebaseConfig' gerado nos passos anteriores
+### 2. Cloud Firestore
+````
+# Crie um novo banco de dados
+No menu, acesse 'Cloud Firestore', clique em 'Criar banco de dados', marque a opção 'Iniciar no modo de produção'.
+
+# Defina as regras
+Acesse a aba 'Regras', depois acesse o diretório raiz do projeto, abra o arquivo 'firestore.rules' e copie todo seu conteúdo, substitua todo o conteúdo da aba 'Regras' pelo conteúdo copiado e clique em 'Publicar'.
+````
+
+### 3. Cloud Functions
+````
+# Instale
+Instale o Firebase CLI seguindo as instruções do link https://firebase.google.com/docs/functions/get-started.
+
+# Publique a função
+Acesse o diretório 'functions/dotfin', execute `firebase use --add`, selecione o projeto criado no primeiro passo e execute `firebase deploy`.
+````
+
+### 4. Aplicativo
+````
+# Configure o projeto Firebase
+Acesse 'Configurações do projeto', vá até 'Seus aplicativos', selecione a opção 'Web' e siga os passos solicitados.
+
+# Configure o aplicativo
+Ao final do passo anterior, copie o conteúdo do 'firebaseConfig' gerado pelo Firebase. Acesse a pasta raiz do projeto e execute `npm install`, depois, acesse o diretório 'src/environments' e abra o arquivo src/environments/environment.ts e substitua o 'firebaseConfig' pelo 'firebaseConfig' gerado anteriormente.
+````
 
 ### Exemplo de um 'firebaseConfig' gerado pelo Firebase
-
 ````json
 firebaseConfig = {
   "apiKey": "XXXXXXXXXXXXXXXXXXXXXX_XXXXXX_XXXXXXXXX",
@@ -74,16 +80,25 @@ firebaseConfig = {
 };
 ```` 
 
-### Executando na Web
-* Execute `npm run start`
-* Acessse o endereço [http://localhost:8100](http://localhost:8100)
+### 5. Executando na Web
+```` 
+# Inicialize
+npm run start
 
-### Executando no Android
-* Execute `npm run build`
-* Execute `npm run open`
-* Após abrir o Android Studio, selecione o dispositivo/emulador e clique em 'Run'
+# Acesse
+Acessse pelo endereço [http://localhost:8100](http://localhost:8100).
+```` 
 
-### Desenvolvimento
+### 6. Executando no Android
+```` 
+# Construa
+npm run build
+
+# Inicialize
+Execute `npm run open` e após abrir o Android Studio, selecione o dispositivo/emulador e clique em 'Run'.
+```` 
+
+# Construído com
 * [Node.js](https://nodejs.org/en/)
 * [Ionic Framework 5](https://ionicframework.com/)
 * [Capacitor](https://capacitorjs.com/)
@@ -92,8 +107,8 @@ firebaseConfig = {
 * [Cloud Functions](https://firebase.google.com/)
 * [TSLint](https://palantir.github.io/tslint/)
 
-### Desenvolvedores
+# Desenvolvedores
 * [Giovani](https://github.com/xxgicoxx)
 
-### Agradecimentos
+# Agradecimentos
 * [FlatIcon](https://www.flaticon.com/)
